@@ -9,7 +9,19 @@ public class Customer {
     public Customer(String customerName, double billAmount, char discountType) {
         this.customerName = customerName;
         this.billAmount = billAmount;
-        this.discountType = discountType;
+        switch(discountType) {
+            case 'd':
+            case 'D':
+                this.discountStrategy = new NormalDiscountStrategy();
+                break;
+            case 'L':
+            case 'l':
+                this.discountStrategy = new LiquidationStrategy();
+                break;
+            case 'S':
+            case 's':
+                this.discountStrategy = new SaleStrategy();
+        }
     }
 
     public String getCustomerName() {
@@ -21,17 +33,7 @@ public class Customer {
     }
 
     public double getBillAmount() {
-        double tempBill;
-        switch(discountType) {
-            case 'S':
-            case 's': tempBill = billAmount - (billAmount * 0.1);
-            case 'D':
-            case 'd': tempBill = billAmount - (billAmount * 0.5);
-            case 'L':
-            case 'l': tempBill = billAmount - (billAmount * 0.75);
-            default: tempBill = billAmount;
-        }
-        return tempBill;
+        return discountStrategy.getBillAmount(billAmount);
     }
 
     public void setBillAmount(double billAmount) {
@@ -43,7 +45,7 @@ public class Customer {
         return "Customer{" +
                 "customerName='" + customerName + '\'' +
                 ", billAmount=" + billAmount +
-                ", discountType=" + discountType +
+                ", discountStrategy=" + discountStrategy +
                 '}';
     }
 }
