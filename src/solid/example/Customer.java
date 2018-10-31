@@ -4,7 +4,7 @@ public class Customer {
 
     private String customerName;
     private double billAmount;
-    private char discountType;
+    private DiscountStrategy discountStrategy;
 
     public Customer(String customerName, double billAmount, char discountType) {
         this.customerName = customerName;
