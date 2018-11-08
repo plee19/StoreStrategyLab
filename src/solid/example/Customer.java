@@ -5,7 +5,11 @@ public class Customer {
     private String customerName;
     private double billAmount;
     private DiscountStrategy discountStrategy;
-
+    /*
+    * I was unsure whether changing "char discountType" to "DiscountStrategy discountStrategy" was necessary, but
+    * didn't want to change the main method, so I moved the switch/case into the constructor to initialize Customer
+    * with a char.
+    */
     public Customer(String customerName, double billAmount, char discountType) {
         this.customerName = customerName;
         this.billAmount = billAmount;
